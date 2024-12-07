@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Client Product Website</title>
+  <link rel="stylesheet" href="css.css">
+  <style>
+    /* Styles for header, search bar, product cards, and responsiveness */
+    header {
+      background-color: #4678dc;
+      padding: 10px 0;
+    }
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+      color: #fff;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+    nav ul li {
+      margin: 0 15px;
+    }
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .search-bar {
+      display: flex;
+      align-items: center;
+    }
+    .search-bar input {
+      padding: 5px;
+      font-size: 14px;
+      border: none;
+      border-radius: 4px;
+      width: 200px;
+    }
+    .search-bar button {
+      padding: 6px 12px;
+      margin-left: 5px;
+      background-color: #f39c12;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .search-bar button:hover {
+      background-color: #e67e22;
+    }
+    .product-list {
+      padding: 10px;
+      background-color: #f8f8f8;
+    }
+    .product-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .product-card {
+      background-color: #fff;
+      padding: 15px;
+      text-align: center;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .product-card img {
+      max-width: 100%;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .product-card h3 {
+      margin: 10px 0;
+      font-size: 18px;
+    }
+    .product-card p {
+      font-size: 14px;
+      color: #555;
+    }
+    .price {
+      font-size: 16px;
+      color: #e67e22;
+      font-weight: bold;
+    }
+    .btn {
+      background-color: #4678dc;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      .product-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 480px) {
+      .product-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Modal styling */
+    #modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+    }
+    #modal img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+    }
+    #modal span {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+    }
+    section#contact {
+    margin-top: 50px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+section#contact h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+input[type="text"], input[type="email"], textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #f0a500;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #e87a00;
+}
+
+button[type="submit"]:active {
+    background-color: #d57a00;
+}
+
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    
+    <div class="container">
+      <h1>MegaFlip</h1>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Products</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+      <!-- Search Bar -->
+      <div class="search-bar">
+        <input type="text" placeholder="Search Products..." id="search-input">
+        <button onclick="searchProduct()">Search</button>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Image Section -->
+  <section>
+    <img src="img.1.webp" alt="Promotional Image" style="width:100%; height:auto;">
+  </section>
+
+  <!-- Main Product Section -->
+  <section class="product-list">
+    <div class="container">
+      <div class="product-cards">
+        <!-- Each product card has an onclick event to open the modal -->
+        <div class="product-card">
+          <a href="https://www.adidas.co.in/"></a>
+          <img src="img.2.webp" alt="Product 1">
+        </div>
+        <div class="product-card">
+          <img src="img.3.webp" alt="Product 2">
+        </div>
+        <div class="product-card">
+          <img src="img.4.webp" alt="Product 3">
+        </div>
+        <div class="product-card">
+          <img src="img.6.webp" alt="Product 4">
+        </div>
+        <div class="product-card">
+          <img src="img.7.webp" alt="Product 5">
+        </div>
+        <div class="product-card">
+          <img src="img.8.webp" alt="Product 6">
+        </div>
+        <div class="product-card">
+          <img src="img.01.webp" alt="Product 7">
+        </div>
+        <div class="product-card">
+          <img src="img.02.webp" alt="Product 8">
+        </div>
+        <div class="product-card">
+          <img src="img.03.webp" alt="Product 9">
+        </div>
+        <div class="product-card">
+            <img src="img.04.webp" alt="Product 10">
+          </div>
+          <div class="product-card">
+            <img src="img.05.webp" alt="Product 11">
+          </div>
+          <div class="product-card">
+            <img src="img.06.webp" alt="Product 12">
+          </div>
+          <div class="product-card">
+            <img src="img.07.webp" alt="Product 13">
+          </div>
+          <div class="product-card">
+            <img src="img.08.webp" alt="Product 14">
+          </div>
+          <div class="product-card">
+            <img src="img.09.webp" alt="Product 15">
+          </div>
+          <div class="product-card">
+            <img src="img1.webp" alt="Product 16">
+          </div>
+          <div class="product-card">
+            <img src="img2.webp" alt="Product 17">
+          </div>
+          <div class="product-card">
+            <img src="img3.webp" alt="Product 18">
+          </div>
+          <!-- Product Cards Section -->
+<div class="product-card">
+    <img src="boat 1.jpeg" alt="Product 19" onclick="openModal('boat 1.jpeg')">
+    <h3>Boat 2.0</h3>
+    <p>Boat 2.0</p>
+    <p class="price">₹ 999/-</p>
+    <button class="btn">Add to Cart</button>
+  </div>
+  
+  <div class="product-card">
+    <img src="boat 2.jpeg" alt="Product 20" onclick="openModal('boat 2.jpeg')">
+    <h3>Boat 2.5</h3>
+    <p>Boat 2.5</p>
+    <p class="price">₹ 949/-</p>
+    <button class="btn">Add to Cart</button>
+  </div>
+  
+  <div class="product-card">
+    <img src="boat 6.jpeg" alt="Product 21" onclick="openModal('boat 6.jpeg')">
+    <h3>Boat headphones</h3>
+    <p>Boat headphones.</p>
+    <p class="price">₹ 1049/-</p>
+    <button class="btn">Add to Cart</button>
+  </div>
+  
+  <div class="product-card">
+    <img src="fort 1.jpeg" alt="Product 22" onclick="openModal('fort 1.jpeg')">
+    <h3>Fortuner</h3>
+    <p>Fortuner.</p>
+    <p class="price">₹ 4999999/-</p>
+    <button class="btn">Add to Cart</button>
+  </div>
+  
+  <div class="product-card">
+    <img src="google 3.jpeg" alt="Product 23" onclick="openModal('google 3.jpeg')">
+    <h3>Google pixel</h3>
+    <p>Google pixel</p>
+    <p class="price">₹ 49999/-</p>
+    <button class="btn">Add to Cart</button>
+  </div>
+  
+  <div class="product-card">
+    <img src="head set 1.jpeg" alt="Product 24" onclick="openModal('head set 1.jpeg')">
+    <h3>Headset</h3>
+    <p>Headset</p>
+    <p class="price">₹ 1599/-</p>
+    <button class="btn">Add to Cart</button>
+  </div>
+  
+  <div class="product-card">
+    <img src="bike 1.jpeg" alt="Product 25" onclick="openModal('bike 1.jpeg')">
+    <h3>MT</h3>
+    <p>MT</p>
+    <p class="price">₹ 299999/-</p>
+    <button class="btn">Add to Cart</button>
+  </div>
+  
+  <div class="product-card">
+    <img src="bike 2.jpeg" alt="Product 26" onclick="openModal('bike 2.jpeg')">
+    <h3>FZS</h3>
+    <p>FZS</p>
+    <p class="price">₹ 5049/-</p>
+    <button class="btn">Add to Cart</button>
+  </div>
+  
+  <div class="product-card">
+    <img src="earpods iph 2.jpeg" alt="Product 27" onclick="openModal('earpods iph 2.jpeg')">
+    <h3>EarPods</h3>
+    <p>EarPods</p>
+    <p class="price">₹ 6999/-</p>
+    <button class="btn">Add to Cart</button>
+  </div>
+  
+  <div class="product-card">
+    <img src="earpods iph1.jpeg" alt="Product 28" onclick="openModal('earpods iph1.jpeg')">
+    <h3>EarPods iPhone 1</h3>
+    <p>EarPods iphone 1</p>
+    <p class="price">₹ 119999/-</p>
+    <button class="btn">Add to Cart</button>
+  </div>
+  
+  <div class="product-card">
+    <img src="homethe 3.jpeg" alt="Product 29" onclick="openModal('homethe 3.jpeg')">
+    <h3>Home Theater</h3>
+    <p>Home Theater</p>
+    <p class="price">₹ 3999/-</p>
+    <button class="btn">Add to Cart</button>
+  </div>
+  
+  <div class="product-card">
+    <img src="onepl 3.jpeg" alt="Product 30" onclick="openModal('onepl 3.jpeg')">
+    <h3>OnePlus 12</h3>
+    <p>Onepluse 12 pro</p>
+    <p class="price">₹ 49000/-</p>
+    <button class="btn">Add to Cart</button>
+  </div>
+  
+  <div class="product-card">
+    <img src="scor 1.jpeg" alt="Product 31" onclick="openModal('scor 1.jpeg')">
+    <h3>Scorpio</h3>
+    <p>Scorpio.</p>
+    <p class="price">₹ 1999999/-</p>
+    <button class="btn">Add to Cart</button>
+  </div>
+  
+  <div class="product-card">
+    <img src="tv 4.jpeg" alt="Product 32" onclick="openModal('tv 4.jpeg')">
+    <h3>Smart TV</h3>
+    <p>Smart Tv</p>
+    <p class="price">₹ 9999/-</p>
+    <button class="btn">Add to Cart</button>
+  </div>
+  
+  <div class="product-card">
+    <img src="img101.webp" alt="Product 33" onclick="openModal('img101.webp')">
+    <h3>Men Regular Shirt</h3>
+    <p>Comfortable regular-fit shirt made from breathable fabric for all occasions.</p>
+    <p class="price">₹ 399/-</p>
+    <button class="btn">Add to Cart</button>
+  </div>
+  </div>
+    </div>
+  </section> 
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <form action="#" method="post">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Your email" required>
+        </div>
+        <div class="form-group">
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="4" placeholder="Your message" required></textarea>
+        </div>
+        <button type="submit">Send Message</button>
+    </form>
+</section>
+
+  <!-- Modal for Image Preview -->
+  <div id="modal">
+    <span onclick="closeModal()">&times;</span>
+    <img id="modal-img" src="" alt="Product Image">
+  </div>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 Client Product Store. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript for modal and search functionality -->
+  <script>
+    // Function to open modal with clicked image
+    function openModal(src) {
+      const modalImg = document.getElementById('modal-img');
+      const modal = document.getElementById('modal');
+      modalImg.src = src;
+      modal.style.display = 'flex';
+    }
+
+    // Function to close modal
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+
+    // Function to simulate search functionality
+    function searchProduct() {
+      const query = document.getElementById('search-input').value.toLowerCase();
+      const products = document.querySelectorAll('.product-card');
+      
+      let found = false;
+      products.forEach(product => {
+        const title = product.querySelector('h3')?.textContent.toLowerCase() || '';
+        if (title.includes(query)) {
+          product.style.display = 'block';
+          found = true;
+        } else {
+          product.style.display = 'none';
+        }
+      });
+
+      if (!found) {
+        alert(`No products found for "${query}"`);
+      }
+    }
+
+    // Close modal when clicking outside the image
+    window.addEventListener('click', function (event) {
+      const modal = document.getElementById('modal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
+  </script>
+</body>
+</html>
